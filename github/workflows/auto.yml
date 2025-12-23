@@ -1,0 +1,19 @@
+name: Auto Green
+
+on:
+  schedule:
+    - cron: "0 9 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          echo "update $(date)" >> green.txt
+          git config user.name "bot"
+          git config user.email "bot@github.com"
+          git add .
+          git commit -m "daily update" || exit 0
+          git push
