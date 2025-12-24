@@ -1,0 +1,19 @@
+name: Daily Contribution
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs daily at midnight
+  workflow_dispatch:   # Lets you start it manually
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - run: date >> daily_report.txt
+      - run: |
+          git config --global user.name "taoufiq2025"
+          git config --global user.email "taoufiq@example.com"
+          git add .
+          git commit -m "daily green"
+          git push
