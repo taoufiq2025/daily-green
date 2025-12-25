@@ -1,8 +1,8 @@
-name: Daily Contribution
+name: Auto Green
 on:
   schedule:
-    - cron: '0 0 * * *' # Runs daily at midnight
-  workflow_dispatch:   # Lets you start it manually
+    - cron: "0 0 * * *"
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -10,12 +10,10 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - run: date >> daily_report.txt
       - run: |
+          date >> report.txt
           git config --global user.name "taoufiq2025"
-          git config --global user.email "taoufiq@example.com"
+          git config --global user.email "misoftdia@gmail.com"
           git add .
-          git commit -m "daily green"
+          git commit -m "daily update" || echo "No changes to commit"
           git push
-
-
